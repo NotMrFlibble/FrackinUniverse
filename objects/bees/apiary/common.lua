@@ -283,13 +283,16 @@ function flowerCheck()
 		flowers = world.objectQuery(entity.position(), 80, {name = p})
 		if flowers ~= nil then
 			self.beePower = self.beePower + math.ceil(math.sqrt(#flowers) / 2)
+			-- limit reached? if so, stop checking
+			if self.beePower >= 60 then
+				self.beePower = 60
+				break
+			end
 		end
 	end
 
 	if self.beePower == noFlowersYet then
 		self.beePower = -1				--- If there are no flowers for the bees... they can't do anything.
-	elseif self.beePower >= 60 then
-		self.beePower = 60
 	end
 
 	local beePowerSay = "FC:bP = " .. self.beePower
